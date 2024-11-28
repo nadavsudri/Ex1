@@ -65,9 +65,23 @@ public class Ex1 {
         int ans = -1;
         if(!isNumber(num)){return -1;}
         else {
-
+            String num_str = num.substring(0,num.indexOf("b"));
+            int num_val = Integer.parseInt(num.substring(0,num.indexOf("b"))); /// create seperate integer for the numeric part
+            int basePart = char_to_int( num.charAt(num.indexOf("b")+1)); /// creates a int for the base
+            if (basePart==10){return num_val;} /// if the base is 10, returns the numeric part
+            else
+            {
+                int dec_sum=0,power= num_str.length()-1; /// 2 integers - one for the sum of the digits, one for the power
+                for (char c:num_str.toCharArray())/// loop every char in num_str, and calc -> dig*base^[index] (ex. -> 124b10 -> 4*10^0 + 2*10^1 + 1*10^2)
+                {
+                    dec_sum = dec_sum+(char_to_int(c)*(int)(Math.pow(basePart,power))); /// calculate  dig*base^[index] and assign it to dec_sum
+                    //System.out.println(char_to_int(c)+"X"+basePart+"^"+power);
+                    power--;
+                    ans = dec_sum;
+                }
         return ans;
-             }
+            }
+        }
     }
     /**
      * This static function checks if the given String (g) is in a valid "number" format.
