@@ -1,35 +1,20 @@
 package Ex1;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.Enumeration;
-
-/**
- * This class represents a simple solution for Ex1.Ex1.
- * As defined here: https://docs.google.com/document/d/1AJ9wtnL1qdEs4DAKqBlO1bXCM6r6GJ_J/r/edit/edit
- * In this assignment, we will design a number formatting converter and calculator.
- * In general, we will use Strings as numbers over basis of binary till Hexa.
- * [2-16], 10-16 are represented by A,B,..G.
- * The general representation of the numbers is as a String with the following format:
- * <number><b><base> e.g., “135bA” (i.e., “135”, as 10 is the default base), “100111b2”, “12345b6”,”012b5”, “123bG”, “EFbG”.
- * The following are NOT in the format (not a valid number):
- * “b2”, “0b1”, “123b”, “1234b11”, “3b3”, “-3b5”, “3 b4”, “GbG”, "", null,
- * You should implement the following static functions:
- */
 public class Ex1 {
-    public static boolean numValid(String s) /// return false if number part contains invalid numbers (e.g H or Z)
-    {   String not_val = "HIJKLMNOPQRSTUVWXYZ";
+    private static boolean numValid(String s) /// return false if number part contains invalid numbers (e.g H or Z)
+    {   String not_val = "HIJKLMNOPQRSTUVWXYZ"; ///string of not valid chars
         for (int i = 0; i < s.length(); i++) ///run over the string and checks for ivnalid characters
         {
-            if(not_val.indexOf(s.charAt(i))>=0){return false;}
+            if(not_val.indexOf(s.charAt(i))>=0){return false;} /// if location of an invalid char is greater than 0, it means the string contains one.
         }
         for(char c : s.toCharArray()){if (char_to_int(c)==-1)return false;}
         return true;
 
     }
-    public static int char_to_int(char ch) /// switching char digits to return corresponding integers
+    private static int char_to_int(char ch) /// switching char digits to return corresponding integers
     {
         switch (ch){
-            case'A'->{return 10;}
+            case 'A'->{return 10;}
             case 'B'->{return 11;}
             case 'C'->{return 12;}
             case 'D'->{return 13;}
@@ -37,7 +22,7 @@ public class Ex1 {
             case 'F'->{return 15;}
             case 'G'->{return 16;}
             case '0'->{return 0;}
-            case'1'->{return 1;}
+            case '1'->{return 1;}
             case '2'->{return 2;}
             case '3'->{return 3;}
             case '4'->{return 4;}
@@ -49,7 +34,30 @@ public class Ex1 {
         }
         return -1;
     }
-    public static boolean baseValid( char s)///checks if the base is valid (1-9 OR A-G)
+    private static char int_to_char(int i){/// Switching integers to return corresponding chars
+        switch (i){
+            case 0->{return '0';}
+            case 1->{return '1';}
+            case 2->{return '2';}
+            case 3->{return '3';}
+            case 4->{return '4';}
+            case 5->{return '5';}
+            case 6->{return '6';}
+            case 7->{return '7';}
+            case 8->{return '8';}
+            case 9-> {return'9';}
+            case 10-> {return'A';}
+            case 11-> {return'B';}
+            case 12-> {return'C';}
+            case 13-> {return'D';}
+            case 14-> {return'E';}
+            case 15-> {return'F';}
+            case 16-> {return'G';}
+
+        }
+        return 'X';
+    }
+    private static boolean baseValid( char s)///checks if the base is valid (1-9 OR A-G)
     {
         String s_base = String.valueOf(s);
         return char_to_int(s) != -1;
@@ -66,18 +74,16 @@ public class Ex1 {
         if(!isNumber(num)){return -1;}
         else {
             String num_str = num.substring(0,num.indexOf("b"));
-            int num_val = Integer.parseInt(num.substring(0,num.indexOf("b"))); /// create seperate integer for the numeric part
             int basePart = char_to_int( num.charAt(num.indexOf("b")+1)); /// creates a int for the base
-            if (basePart==10){return num_val;} /// if the base is 10, returns the numeric part
+            if (basePart==10){return Integer.parseInt(num.substring(0,num.indexOf("b")));} /// if the base is 10, returns the numeric part
             else
             {
                 int dec_sum=0,power= num_str.length()-1; /// 2 integers - one for the sum of the digits, one for the power
                 for (char c:num_str.toCharArray())/// loop every char in num_str, and calc -> dig*base^[index] (ex. -> 124b10 -> 4*10^0 + 2*10^1 + 1*10^2)
                 {
                     dec_sum = dec_sum+(char_to_int(c)*(int)(Math.pow(basePart,power))); /// calculate  dig*base^[index] and assign it to dec_sum
-                    //System.out.println(char_to_int(c)+"X"+basePart+"^"+power);
                     power--;
-                    ans = dec_sum;
+                    ans = dec_sum;/// Assign dec_sum to ans
                 }
         return ans;
             }
@@ -105,34 +111,23 @@ public class Ex1 {
         return ans;
     }
 
-    /**
-     * Calculate the number representation (in basis base)
-     * of the given natural number (represented as an integer).
-     * If num<0 or base is not in [2,16] the function should return "" (the empty String).
-     * @param num the natural number (include 0).
-     * @param base the basis [2,16]
-     * @return a String representing a number (in base) equals to num, or an empty String (in case of wrong input).
-     */
     public static String int2Number(int num, int base) {
-        String ans = "";
-        // add your code here
-
-        ////////////////////
-        return ans;
+        StringBuilder ans = new StringBuilder(); /// defin ans as string builder to append the necessary chars
+        String temp_str = String.valueOf(num);/// gets a string with val on num
+        for (char c : temp_str.toCharArray())
+        {
+            if (num==0){break;}// makes sure not to go on if num is 0
+            ans.append(int_to_char(num % base));//adds the digit to the number based on the remainder
+            num /= base;//divide by the base to proceed to next digit
+        }
+        ans.reverse();// reverse the number (the loop built it backwards
+        ans.append("b");
+        ans.append(int_to_char(base));
+        return ans.toString(); /// returning the string value of ans
     }
 
-    /**
-     * Checks if the two numbers have the same value.
-     * @param n1 first number
-     * @param n2 second number
-     * @return true iff the two numbers have the same values.
-     */
     public static boolean equals(String n1, String n2) {
-        boolean ans = true;
-        // add your code here
-
-        ////////////////////
-        return ans;
+        return number2Int(n1)==number2Int(n2); /// Uses the number2int method to compare values
     }
 
     /**
@@ -143,11 +138,13 @@ public class Ex1 {
      * @return the index in the array in with the largest number (in value).
      *
      */
-    public static int maxIndex(String[] arr) {
+    public static int maxIndex(String[] arr) /// Runs over arr and using the method number2int, compares every number in the array (assume 1st is the biggest)
+    {
         int ans = 0;
-        // add your code here
-
-        ////////////////////
+        for (int i = 0; i < arr.length; i++)
+        {
+            if (number2Int(arr[i]) > number2Int(arr[ans])){ans = i;}
+        }
         return ans;
     }
 }
