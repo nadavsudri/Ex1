@@ -1,16 +1,16 @@
 package Ex1;
 import java.util.Enumeration;
 public class Ex1 {
-    private static boolean numValid(String s) /// return false if number part contains invalid numbers (e.g H or Z)
-    {   String not_val = "HIJKLMNOPQRSTUVWXYZ"; ///string of not valid chars
-        for (int i = 0; i < s.length(); i++) ///run over the string and checks for ivnalid characters
+    private static boolean numValid(String s) // return false if number part contains invalid numbers (e.g H or Z)
+    {   String not_val = "HIJKLMNOPQRSTUVWXYZ"; ///string of invalid chars
+        for (int i = 0; i < s.length(); i++) ///run over the string and checks for invalid characters
         {
             if(not_val.indexOf(s.charAt(i))>=0){return false;} /// if location of an invalid char is greater than 0, it means the string contains one.
         }
         for(char c : s.toCharArray()){if (char_to_int(c)==-1)return false;}
         return true;
     }
-    private static int char_to_int(char ch) /// switching char digits to return corresponding integers
+    private static int char_to_int(char ch) // switching char digits to return corresponding integers
     {
         switch (ch){
             case 'A'->{return 10;}
@@ -33,7 +33,8 @@ public class Ex1 {
         }
         return -1;
     }
-    private static char int_to_char(int i){/// Switching integers to return corresponding chars
+    public static char int_to_char(int i)//Switching integers to return corresponding chars
+    {
         switch (i){
             case 0->{return '0';}
             case 1->{return '1';}
@@ -56,20 +57,34 @@ public class Ex1 {
         }
         return 'X';
     }
-    private static boolean baseValid( char s)///checks if the base is valid (1-9 OR A-G)
+    public static boolean baseValid( char s)//checks if the base is valid (1-9 OR A-G)
     {
         String s_base = String.valueOf(s);
         return char_to_int(s) != -1;
+    }
+    private static boolean is_digits_only(String s) // checks if a string contains digits only
+    {boolean ans = true;
+        for (int i = 0; i < s.length(); i++)
+        {
+            if(!Character.isDigit(s.charAt(i))){ans = false;}
+        }
+        return ans;
     }
     /**
      * Convert the given number (num) to a decimal representation (as int).
      * It the given number is not in a valid format returns -1.
      * @param num a String representing a number in basis [2,16]
      * @return
+     * first, checks if the string is digits only, if so returns the number as int (digits only - base 10)
+     * then checks if the number is valid with is number (return -1 if not)
+     * then devides the string to a number (numeric value) and a base
+     * and then begin to loop over the string digits, multiplying each digit in its  base to the corresponding power (ex. -> 124b10 -> 4*10^0 + 2*10^1 + 1*10^2)
+     * lastly return the answer
      */
 
     public static int number2Int(String num) {
         int ans = -1;
+        if(is_digits_only(num)){return Integer.parseInt(num);}
         if(!isNumber(num)){return -1;}
         else {
             String num_str = num.substring(0,num.indexOf("b"));
@@ -99,11 +114,15 @@ public class Ex1 {
      */
     public static boolean isNumber(String a) {
         boolean ans = true;
+        if (is_digits_only(a)){return true;}
         int count = 0;
         for(int i = 0; i < a.length(); i++){if(a.charAt(i)=='b'){count++;}}///checks if b  appears in the string less or ,more then 1
         if (count>1){return false;}
-        String numPart = a.substring(0,a.indexOf("b")); /// create seperate string for the numeric part
-        char basePart = a.charAt(a.indexOf("b")+1); /// creates a char for the base
+        String numPart;
+        if (!a.contains("b")){numPart =  a;}
+        else { numPart= a.substring(0,a.indexOf("b"));}/// create seperate string for the numeric part
+        if (a.charAt(a.length()-1)=='b'){return false;} // if there is a 'b', but nothing after it, return false
+        char basePart = a.charAt(a.indexOf('b')+1); /// creates a char for the base
         if(char_to_int(basePart)>16||char_to_int(basePart)<=1){return false;} /// checks if the base is within 2-16
         if(!numValid(numPart)){return false;}
         if(!baseValid(basePart)){return false;}
