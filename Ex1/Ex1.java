@@ -9,7 +9,6 @@ public class Ex1 {
         }
         for(char c : s.toCharArray()){if (char_to_int(c)==-1)return false;}
         return true;
-
     }
     private static int char_to_int(char ch) /// switching char digits to return corresponding integers
     {
@@ -91,28 +90,41 @@ public class Ex1 {
     }
     /**
      * This static function checks if the given String (g) is in a valid "number" format.
-     * @param a a String representing a number
-     * @return true iff the given String is in a number format
+     * the function is built on elimination procces, and returns false anytime a certain "invalid" property is recognized.
+     * fisrt, checks if "b" is 0,1 or more times in the string, if greater than 1, return false
+     * second, it creates different chars for the numerical part, and the base (to later be processed as integers)
+     * then it checks if the base is valid (if 1<base<17) and return false if it's out of range
+     * lastly it goes over all the numeric part and checks if there is a digit greater than the base.
+     * if a certain string passed all these conditions, it is considered valid.
      */
     public static boolean isNumber(String a) {
         boolean ans = true;
         int count = 0;
         for(int i = 0; i < a.length(); i++){if(a.charAt(i)=='b'){count++;}}///checks if b  appears in the string less or ,more then 1
-        if (count!=1){return false;}
+        if (count>1){return false;}
         String numPart = a.substring(0,a.indexOf("b")); /// create seperate string for the numeric part
         char basePart = a.charAt(a.indexOf("b")+1); /// creates a char for the base
         if(char_to_int(basePart)>16||char_to_int(basePart)<=1){return false;} /// checks if the base is within 2-16
         if(!numValid(numPart)){return false;}
         if(!baseValid(basePart)){return false;}
-        for(char c : numPart.toCharArray()) ///checks if there is any digit larger than the base
+        for(char current_letter : numPart.toCharArray()) ///checks if there is any digit larger than the base
         {
-            if(char_to_int(c)>=char_to_int(basePart)){return false;}
+            if(char_to_int(current_letter)>=char_to_int(basePart)){return false;}
         }
         return ans;
     }
-
+    /**
+     * this function receives 2 integers, num And base, then returns the number validly in given base.
+     * first, a string builder is used to append chars ot a new string, later will be our number.
+     * then, a temp_str is used to loop over the integer digits with a for loop
+     * the loop will break if the num is 0 (later is devided)
+     * then the loop finds the remainder for every digit, and append id to ans
+     * lastly, num is divided by the base in order to proceed to the next division.
+     * then, ans is reversed (digits appends backwords [the division worked its way from the lergest to smallest])
+     * lastly ans is appended "b" and a char representing the base.
+     * **/
     public static String int2Number(int num, int base) {
-        StringBuilder ans = new StringBuilder(); /// defin ans as string builder to append the necessary chars
+        StringBuilder ans = new StringBuilder(); /// define ans as string builder to append the necessary chars
         String temp_str = String.valueOf(num);/// gets a string with val on num
         for (char c : temp_str.toCharArray())
         {
@@ -125,7 +137,6 @@ public class Ex1 {
         ans.append(int_to_char(base));
         return ans.toString(); /// returning the string value of ans
     }
-
     public static boolean equals(String n1, String n2) {
         return number2Int(n1)==number2Int(n2); /// Uses the number2int method to compare values
     }

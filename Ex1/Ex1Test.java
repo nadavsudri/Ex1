@@ -35,5 +35,8 @@ public class Ex1Test {
 
     @org.junit.jupiter.api.Test
     void maxIndex() {
+        String[] nums_test = {"A12FFbG","11b2","AAAAAbG"};
+        int max = Ex1.maxIndex(nums_test);
+        Assertions.assertEquals(2, max);
     }
 }
