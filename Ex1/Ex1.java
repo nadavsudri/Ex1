@@ -2,8 +2,8 @@ package Ex1;
 import java.util.Enumeration;
 public class Ex1 {
     private static boolean numValid(String s) // return false if number part contains invalid numbers (e.g H or Z)
-    {   String not_val = "HIJKLMNOPQRSTUVWXYZ"; ///string of invalid chars
-        for (int i = 0; i < s.length(); i++) ///run over the string and checks for invalid characters
+    {   String not_val = "HIJKLMNOPQRSTUVWXYZ"; //string of invalid chars
+        for (int i = 0; i < s.length(); i++) //run over the string and checks for invalid characters
         {
             if(not_val.indexOf(s.charAt(i))>=0){return false;} /// if location of an invalid char is greater than 0, it means the string contains one.
         }
@@ -77,7 +77,7 @@ public class Ex1 {
      * @return
      * first, checks if the string is digits only, if so returns the number as int (digits only - base 10)
      * then checks if the number is valid with is number (return -1 if not)
-     * then devides the string to a number (numeric value) and a base
+     * then devices the string to a number (numeric value) and a base
      * and then begin to loop over the string digits, multiplying each digit in its  base to the corresponding power (ex. -> 124b10 -> 4*10^0 + 2*10^1 + 1*10^2)
      * lastly return the answer
      */
@@ -88,16 +88,16 @@ public class Ex1 {
         if(!isNumber(num)){return -1;}
         else {
             String num_str = num.substring(0,num.indexOf("b"));
-            int basePart = char_to_int( num.charAt(num.indexOf("b")+1)); /// creates a int for the base
-            if (basePart==10){return Integer.parseInt(num.substring(0,num.indexOf("b")));} /// if the base is 10, returns the numeric part
+            int basePart = char_to_int( num.charAt(num.indexOf("b")+1)); // creates a int for the base
+            if (basePart==10){return Integer.parseInt(num.substring(0,num.indexOf("b")));} // if the base is 10, returns the numeric part
             else
             {
-                int dec_sum=0,power= num_str.length()-1; /// 2 integers - one for the sum of the digits, one for the power
-                for (char c:num_str.toCharArray())/// loop every char in num_str, and calc -> dig*base^[index] (ex. -> 124b10 -> 4*10^0 + 2*10^1 + 1*10^2)
+                int dec_sum=0,power= num_str.length()-1; // 2 integers - one for the sum of the digits, one for the power (power assinged to the size of the string -1)
+                for (char c:num_str.toCharArray())// loop every char in num_str, and calc -> dig*base^[index] (ex. -> 124b10 -> 4*10^0 + 2*10^1 + 1*10^2)
                 {
-                    dec_sum = dec_sum+(char_to_int(c)*(int)(Math.pow(basePart,power))); /// calculate  dig*base^[index] and assign it to dec_sum
-                    power--;
-                    ans = dec_sum;/// Assign dec_sum to ans
+                    dec_sum = dec_sum+(char_to_int(c)*(int)(Math.pow(basePart,power))); // calculate  dig*base^[index] and assign it to dec_sum
+                    power--; // reduces the power by 1
+                    ans = dec_sum;// Assign dec_sum to ans
                 }
         return ans;
             }

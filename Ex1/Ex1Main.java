@@ -1,3 +1,21 @@
+/**
+ * By nadav sudri - 322714924
+ * ---Output---
+ * Enter first number in a valid format (Type 'quit' to exit)': -> 1121212b2
+ * Number = 1121212b2| is valid?: false| Value: -1
+ * Err: Not a valid number: 1121212b2
+ * Enter first number in a valid format (Type 'quit' to exit)': -> 1001001101b2
+ * Number = 1001001101b2| is valid?: true| Value: 589
+ * Enter second number in a valid format (Type 'quit' to exit)': -> 1789bB
+ * Number = 1789bB| is valid?: true| Value: 2275
+ * Enter a base to calculate (Range [2,16]): -> 11
+ * 1001001101b2 + 1789bB = 2174bB
+ * 1001001101b2 * 1789bB = 83581AbB
+ * Max number From [1001001101b2,1789bB,2174bB,83581AbB]
+ * is: 83581AbB --> 1339975 in decimal
+ * _______________The_End_____________
+ * **/
+
 package Ex1;
 import java.sql.SQLOutput;
 import java.util.Scanner;
@@ -18,7 +36,7 @@ public class Ex1Main {
         System.out.println();
         return num;
     }
-    public static int get_base() // Gets from user the first number
+    public static int get_base() // Gets from user the base as integer
     {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter a base to calculate (Range [2,16]): -> ");
@@ -44,7 +62,14 @@ public class Ex1Main {
         }
         System.out.println("]");
     } //prints array in format of [x,y,z,w]
-    public static void main(String[] args) {
+    /**
+     * Main function, get as input 2 strings and an integer, (for each one the function will only accept valid formats)
+     * then prints the sum and multiplication of the two numbers, and show it in the given base as an output.
+     * lastly it shows the maximum between the numbers (num1,num2,sum,mult)
+     * any time the user types 'quit' the program will stop running
+     * **/
+    public static void main(String[] args)
+    {
         while ((true)) // Goes on until user type 'quit'
         {   String first = get_First();
             if (first.equals("quit")){System.exit(0);} // exit if user types 'quit'
@@ -74,7 +99,7 @@ public class Ex1Main {
             String[] nums = {first,second,Ex1.int2Number(sum,base),Ex1.int2Number(mult,base)};//create an array of strings
             System.out.print("Max number From ");
             print_arr(nums); // prints the array in a format of : [a1,a2,a3....]
-            System.out.print("is: " + nums[Ex1.maxIndex(nums)]);
+            System.out.print("is: " + nums[Ex1.maxIndex(nums)]+" --> " + Ex1.number2Int(nums[Ex1.maxIndex(nums)])+" in decimal");
             System.out.println();
             System.out.println("_______________The_End_____________");
 
