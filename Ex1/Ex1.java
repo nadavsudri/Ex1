@@ -2,11 +2,7 @@ package Ex1;
 import java.util.Enumeration;
 public class Ex1 {
     private static boolean numValid(String s) // return false if number part contains invalid numbers (e.g H or Z)
-    {   String not_val = "HIJKLMNOPQRSTUVWXYZ"; //string of invalid chars
-        for (int i = 0; i < s.length(); i++) //run over the string and checks for invalid characters
-        {
-            if(not_val.indexOf(s.charAt(i))>=0){return false;} /// if location of an invalid char is greater than 0, it means the string contains one.
-        }
+    {
         for(char c : s.toCharArray()){if (char_to_int(c)==-1)return false;}
         return true;
     }
@@ -59,7 +55,6 @@ public class Ex1 {
     }
     public static boolean baseValid( char s)//checks if the base is valid (1-9 OR A-G)
     {
-        String s_base = String.valueOf(s);
         return char_to_int(s) != -1;
     }
     private static boolean is_digits_only(String s) // checks if a string contains digits only
@@ -143,7 +138,7 @@ public class Ex1 {
      * lastly ans is appended "b" and a char representing the base.
      * **/
     public static String int2Number(int num, int base) {
-        StringBuilder ans = new StringBuilder(); /// define ans as string builder to append the necessary chars
+        StringBuilder ans = new StringBuilder(); /// define ans as string builder to append and reverse the necessary chars
         String temp_str = String.valueOf(num);/// gets a string with val on num
         for (char c : temp_str.toCharArray())
         {
