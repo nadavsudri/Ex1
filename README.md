@@ -6,7 +6,7 @@ the solution is based on the template provided in the assignment sheet (https://
 every method has explanatory comments, and a test method provided on the Ex1Test.java file.
 in any given moment, user can type 'quit' for the program to stop.
 
-Here's an example output for provided an invalid String "12118b7" :
+Here's an example output for provided invalid String "12118b7" :
 ________________________________________________________________________
 Enter first number in a valid format (Type 'quit' to exit)': -> 12118b7
 
