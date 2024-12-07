@@ -112,7 +112,7 @@ public class Ex1 {
      * if a certain string passed all these conditions, it is considered valid.
      */
     public static boolean isNumber(String a) {
-        boolean ans = false;
+        boolean ans = true;
         if(a.isEmpty()){return true;}
         if (is_digits_only(a)){return true;}
         int count = 0;

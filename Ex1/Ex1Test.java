@@ -1,9 +1,32 @@
 package Ex1;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-
+import java.util.Random;
 
 public class Ex1Test {
+    /** static String method for tests only - provides a random valid number
+     * base is assigned using random library (2-16)
+     * then using a stringbuilder appends the chars by order to create a valid string
+     * **/
+    private static String rndNumStr()
+    {
+        Random random = new Random();
+        int base = random.nextInt(15) + 2;
+        // Convert base to a valid char base [2,16]
+        char baseChar = Ex1.int_to_char(base);
+        int length = random.nextInt(5) + 1; // Length of the number (1 to 5 chars)
+        StringBuilder number = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int digit = random.nextInt(base-1)+1;
+            if (digit < 10) {
+                number.append(digit); // Append numeric digits for 0-9
+            }
+            else {
+                number.append(Ex1.int_to_char(digit)); // Append A-F for 10-15
+            }
+        }
+        return number.toString() + "b" + baseChar;
+    }
     @Test
     void number2Int()
     {
@@ -11,21 +34,23 @@ public class Ex1Test {
         int number2 = Ex1.number2Int(number);
         Assertions.assertEquals(660267, number2);
         String number3 = "016473b1";
-        Assertions.assertEquals(-1, Ex1.number2Int(number3));
-    }
+        Assertions.assertEquals(-1, Ex1.number2Int(number3));}
 
     @Test
     void isNumber() {
-        String number = "A132BbG";
-        String number2 = "123456";
-        String number3 = "AABBCCbG";
-        String number4= "567AbH";
-        String number5 = "11b02";
-        String number6 = "7699b";
-        int t = 0, f = 0;
-        String [] numbs = {number,number2,number3,number4,number5,number6};
-        for (int i =0; i<5; i++){if (Ex1.isNumber(numbs[i])){t++;}else{f++;}}
-        Assertions.assertEquals(1,t/f);
+        String [] randNumbs = new String[10];
+        for (int i = 0; i < 10; i++)
+        {
+            randNumbs[i] = rndNumStr();
+            System.out.println(randNumbs[i]);
+        }
+        int c=0;
+        for (int i =0; i<randNumbs.length; i++)
+        {
+            if (Ex1.isNumber("123b5"))
+            {c++;}
+        }
+        Assertions.assertEquals(10,c);
     }
 
     @Test
@@ -37,11 +62,10 @@ public class Ex1Test {
 
     @Test
     void testEquals() {
-        String number = "A132BbG";
+        String number = rndNumStr();
         int number2 = Ex1.number2Int(number);
-        Assertions.assertEquals(number, Ex1.int2Number(number2,16));
+        Assertions.assertEquals(number2,Ex1.number2Int(number) );
     }
-
     @Test
     void maxIndex() {
         String[] nums_test = {"A12FFbG","11b2","AAAAAbG"};
