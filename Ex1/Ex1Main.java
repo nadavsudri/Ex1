@@ -69,8 +69,8 @@ public class Ex1Main {
      * any time the user types 'quit' the program will stop running
      * **/
     public static void main(String[] args)
-    { String first = new String();
-        String second = new String();
+    { String first = "";
+        String second = "";
         while (!(first.equals("quit")||(second.equals("quit")))) // Goes on until user type 'quit'
         {   first = get_First();
             if (first.equals("quit")){System.exit(0);} // exit if user types 'quit'

@@ -1,12 +1,14 @@
 package Ex1;
 import java.util.Enumeration;
 public class Ex1 {
-    private static boolean numValid(String s) // return false if number part contains invalid numbers (e.g H or Z)
+    /** return false if number part contains invalid numbers (e.g H or Z)**/
+    private static boolean numValid(String s)
     {
         for(char c : s.toCharArray()){if (char_to_int(c)==-1)return false;}
         return true;
     }
-    private static int char_to_int(char ch) // switching char digits to return corresponding integers
+    /** switching char digits to return corresponding integers**/
+    private static int char_to_int(char ch)
     {
         switch (ch){
             case 'A'->{return 10;}
@@ -29,7 +31,8 @@ public class Ex1 {
         }
         return -1;
     }
-    public static char int_to_char(int i)//Switching integers to return corresponding chars
+    /**Switching integers to return corresponding chars**/
+    public static char int_to_char(int i)
     {
         switch (i){
             case 0->{return '0';}
@@ -53,11 +56,13 @@ public class Ex1 {
         }
         return 'X';
     }
-    public static boolean baseValid( char s)//checks if the base is valid (1-9 OR A-G)
+    /**checks if the base is valid (1-9 OR A-G)**/
+    public static boolean baseValid( char s)
     {
         return char_to_int(s) != -1&&char_to_int(s)>1;
     }
-    private static boolean is_digits_only(String s) // checks if a string contains digits only
+    /** checks if a string contains digits only**/
+    private static boolean is_digits_only(String s)
     {boolean ans = true;
         for (int i = 0; i < s.length(); i++)
         {
@@ -65,7 +70,6 @@ public class Ex1 {
         }
         return ans;
     }
-
     /**
      * Convert the given number (num) to a decimal representation (as int).
      * It the given number is not in a valid format returns -1.
@@ -79,8 +83,8 @@ public class Ex1 {
      */
     public static int number2Int(String num) {
         int ans = -1;
-        if(is_digits_only(num)){return Integer.parseInt(num);}
         if(!isNumber(num)){return -1;}
+        if(is_digits_only(num)){return Integer.parseInt(num);}
         else {
             String num_str = num.substring(0,num.indexOf("b"));
             int basePart = char_to_int( num.charAt(num.indexOf("b")+1)); // creates a int for the base
@@ -108,7 +112,8 @@ public class Ex1 {
      * if a certain string passed all these conditions, it is considered valid.
      */
     public static boolean isNumber(String a) {
-        boolean ans = true;
+        boolean ans = false;
+        if(a.isEmpty()){return true;}
         if (is_digits_only(a)){return true;}
         int count = 0;
         for(int i = 0; i < a.length(); i++){if(a.charAt(i)=='b'){count++;}}///checks if b  appears in the string less or ,more then 1
@@ -151,6 +156,10 @@ public class Ex1 {
         ans.append(int_to_char(base));
         return ans.toString(); /// returning the string value of ans
     }
+    /**
+     * This static function returns true if the 2 strings
+     * @param n1 n2 have identical numeric value.
+     * **/
     public static boolean equals(String n1, String n2) {
         return number2Int(n1)==number2Int(n2); /// Uses the number2int method to compare values
     }
