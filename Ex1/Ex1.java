@@ -55,7 +55,7 @@ public class Ex1 {
     }
     public static boolean baseValid( char s)//checks if the base is valid (1-9 OR A-G)
     {
-        return char_to_int(s) != -1;
+        return char_to_int(s) != -1&&char_to_int(s)>1;
     }
     private static boolean is_digits_only(String s) // checks if a string contains digits only
     {boolean ans = true;
@@ -65,6 +65,7 @@ public class Ex1 {
         }
         return ans;
     }
+
     /**
      * Convert the given number (num) to a decimal representation (as int).
      * It the given number is not in a valid format returns -1.
@@ -76,7 +77,6 @@ public class Ex1 {
      * and then begin to loop over the string digits, multiplying each digit in its  base to the corresponding power (ex. -> 124b10 -> 4*10^0 + 2*10^1 + 1*10^2)
      * lastly return the answer
      */
-
     public static int number2Int(String num) {
         int ans = -1;
         if(is_digits_only(num)){return Integer.parseInt(num);}

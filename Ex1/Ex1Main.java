@@ -69,26 +69,25 @@ public class Ex1Main {
      * any time the user types 'quit' the program will stop running
      * **/
     public static void main(String[] args)
-    {
-        while ((true)) // Goes on until user type 'quit'
-        {   String first = get_First();
+    { String first = new String();
+        String second = new String();
+        while (!(first.equals("quit")||(second.equals("quit")))) // Goes on until user type 'quit'
+        {   first = get_First();
             if (first.equals("quit")){System.exit(0);} // exit if user types 'quit'
             num_show(first); // print the number
             while(!Ex1.isNumber(first)){ // repeats the scanning as long as the number provided is not valid.
                 first = get_First();
-                if (first.equals("quit")){System.exit(0);}// exit if user types 'quit'
                 num_show(first);
             }
-            String second = get_Second();
+             second = get_Second();
             if (second.equals("quit")){System.exit(0);} // exit if user types 'quit'
             num_show(second);//print the number
             while(!Ex1.isNumber(second)){// repeats the scanning as long as the number provided is not valid.
                 second = get_Second();
-                if (second.equals("quit")){System.exit(0);}// exit if user types 'quit'
                 num_show(second);
             }
             int base = get_base();
-            while (!Ex1.baseValid(Ex1.int_to_char(base)))
+            while (!Ex1.baseValid(Ex1.int_to_char(base))) //while the base is valid ([2,16])
             {base = get_base();}
             System.out.println();
             int sum = (Ex1.number2Int(first)+Ex1.number2Int(second)); // the sum of the 2 numbers
@@ -101,9 +100,6 @@ public class Ex1Main {
             print_arr(nums); // prints the array in a format of : [a1,a2,a3....]
             System.out.print("is: " + nums[Ex1.maxIndex(nums)]+" --> " + Ex1.number2Int(nums[Ex1.maxIndex(nums)])+" in decimal");
             System.out.println();
-            System.out.println("_______________The_End_____________");
-
-
         }
     }
 }
