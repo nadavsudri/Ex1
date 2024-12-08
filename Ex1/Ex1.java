@@ -1,5 +1,4 @@
 package Ex1;
-import java.util.Enumeration;
 public class Ex1 {
     /** return false if number part contains invalid numbers (e.g H or Z)**/
     private static boolean numValid(String s)
@@ -113,20 +112,20 @@ public class Ex1 {
      */
     public static boolean isNumber(String a) {
         boolean ans = true;
-        if(a.isEmpty()){return true;}
+        if(a.isEmpty()){return false;}
         if (is_digits_only(a)){return true;}
         int count = 0;
-        for(int i = 0; i < a.length(); i++){if(a.charAt(i)=='b'){count++;}}///checks if b  appears in the string less or ,more then 1
+        for(int i = 0; i < a.length(); i++){if(a.charAt(i)=='b'){count++;}}//checks if b  appears in the string less or ,more then 1
         if (count>1){return false;}
         String numPart;
         if (!a.contains("b")){numPart =  a;}
-        else { numPart= a.substring(0,a.indexOf("b"));}/// create seperate string for the numeric part
+        else { numPart= a.substring(0,a.indexOf("b"));}// create separate string for the numeric part
         if (a.charAt(a.length()-1)=='b'){return false;} // if there is a 'b', but nothing after it, return false
-        char basePart = a.charAt(a.indexOf('b')+1); /// creates a char for the base
-        if(char_to_int(basePart)>16||char_to_int(basePart)<=1){return false;} /// checks if the base is within 2-16
+        char basePart = a.charAt(a.indexOf('b')+1); // creates a char for the base
+        if(char_to_int(basePart)>16||char_to_int(basePart)<=1){return false;} // checks if the base is within 2-16
         if(!numValid(numPart)){return false;}
         if(!baseValid(basePart)){return false;}
-        for(char current_letter : numPart.toCharArray()) ///checks if there is any digit larger than the base
+        for(char current_letter : numPart.toCharArray()) //checks if there is any digit larger than the base
         {
             if(char_to_int(current_letter)>=char_to_int(basePart)){return false;}
         }
@@ -143,27 +142,25 @@ public class Ex1 {
      * lastly ans is appended "b" and a char representing the base.
      * **/
     public static String int2Number(int num, int base) {
-        StringBuilder ans = new StringBuilder(); /// define ans as string builder to append and reverse the necessary chars
-        String temp_str = String.valueOf(num);/// gets a string with val on num
-        for (char c : temp_str.toCharArray())
+        StringBuilder ans = new StringBuilder(); // define ans as string builder to append and reverse the necessary chars
+        String temp_str = String.valueOf(num);// gets a string with val on num
+        while (num!=0)// divides num to convert, stops when 0
         {
-            if (num==0){break;}// makes sure not to go on if num is 0
             ans.append(int_to_char(num % base));//adds the digit to the number based on the remainder
             num /= base;//divide by the base to proceed to next digit
         }
         ans.reverse();// reverse the number (the loop built it backwards
         ans.append("b");
         ans.append(int_to_char(base));
-        return ans.toString(); /// returning the string value of ans
+        return ans.toString(); // returning the string value of ans
     }
     /**
      * This static function returns true if the 2 strings
      * @param n1 n2 have identical numeric value.
      * **/
     public static boolean equals(String n1, String n2) {
-        return number2Int(n1)==number2Int(n2); /// Uses the number2int method to compare values
+        return number2Int(n1)==number2Int(n2); // Uses the number2int method to compare values
     }
-
     /**
      * This static function search for the array index with the largest number (in value).
      * In case there are more than one maximum - returns the first index.
@@ -172,7 +169,7 @@ public class Ex1 {
      * @return the index in the array in with the largest number (in value).
      *
      */
-    public static int maxIndex(String[] arr) /// Runs over arr and using the method number2int, compares every number in the array (assume 1st is the biggest)
+    public static int maxIndex(String[] arr) // Runs over arr and using the method number2int, compares every number in the array (assume 1st is the biggest)
     {
         int ans = 0;
         for (int i = 0; i < arr.length; i++)

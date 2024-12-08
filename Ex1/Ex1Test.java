@@ -7,6 +7,7 @@ public class Ex1Test {
     /** static String method for tests only - provides a random valid number
      * base is assigned using random library (2-16)
      * then using a stringbuilder appends the chars by order to create a valid string
+     * returns the string in a valid format
      * **/
     private static String rndNumStr()
     {
@@ -27,6 +28,7 @@ public class Ex1Test {
         }
         return number.toString() + "b" + baseChar;
     }
+
     @Test
     void number2Int()
     {
@@ -39,11 +41,7 @@ public class Ex1Test {
     @Test
     void isNumber() {
         String [] randNumbs = new String[10];
-        for (int i = 0; i < 10; i++)
-        {
-            randNumbs[i] = rndNumStr();
-            System.out.println(randNumbs[i]);
-        }
+        for (int i = 0; i < 10; i++) {randNumbs[i] = rndNumStr();}
         int c=0;
         for (int i =0; i<randNumbs.length; i++)
         {
@@ -56,7 +54,11 @@ public class Ex1Test {
     @Test
     void int2Number() {
         int num = Ex1.number2Int("A132BbG");
+        int num2 = 1256;
+        String l = Ex1.int2Number(num2,2);
+        System.out.println(l);
         int base = 16;
+        System.out.println(num);
         Assertions.assertEquals("A132BbG", Ex1.int2Number(num,base));
     }
 

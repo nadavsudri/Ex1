@@ -69,18 +69,17 @@ public class Ex1Main {
      * any time the user types 'quit' the program will stop running
      * **/
     public static void main(String[] args)
-    { String first = "";
+    {
+        String first = "";
         String second = "";
         while (!(first.equals("quit")||(second.equals("quit")))) // Goes on until user type 'quit'
         {   first = get_First();
-            if (first.equals("quit")){System.exit(0);} // exit if user types 'quit'
             num_show(first); // print the number
             while(!Ex1.isNumber(first)){ // repeats the scanning as long as the number provided is not valid.
                 first = get_First();
                 num_show(first);
             }
-             second = get_Second();
-            if (second.equals("quit")){System.exit(0);} // exit if user types 'quit'
+            second = get_Second();
             num_show(second);//print the number
             while(!Ex1.isNumber(second)){// repeats the scanning as long as the number provided is not valid.
                 second = get_Second();
@@ -88,7 +87,11 @@ public class Ex1Main {
             }
             int base = get_base();
             while (!Ex1.baseValid(Ex1.int_to_char(base))) //while the base is valid ([2,16])
-            {base = get_base();}
+            {
+                System.out.println("Err. invalid base ("+base+")");
+                base = get_base();
+            }
+
             System.out.println();
             int sum = (Ex1.number2Int(first)+Ex1.number2Int(second)); // the sum of the 2 numbers
             int mult = (Ex1.number2Int(first)*Ex1.number2Int(second)); // the multiplication  of the 2 numbers
