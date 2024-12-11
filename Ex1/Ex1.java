@@ -117,14 +117,14 @@ public class Ex1 {
         int count = 0;
         for(int i = 0; i < a.length(); i++){if(a.charAt(i)=='b'){count++;}}//checks if b  appears in the string less or ,more then 1
         if (count>1){return false;}
-        String numPart;
-        if (!a.contains("b")){numPart =  a;}
+        String numPart; // sets the numeric part with no value to determine later based on b
+        if (!a.contains("b")){numPart =  a;} // no "b" - decimal.
         else { numPart= a.substring(0,a.indexOf("b"));}// create separate string for the numeric part
+        if(numPart.isEmpty()){return false;}// if the numeric part is empty return false ("b3") ex.
         if (a.charAt(a.length()-1)=='b'){return false;} // if there is a 'b', but nothing after it, return false
         char basePart = a.charAt(a.indexOf('b')+1); // creates a char for the base
-        if(char_to_int(basePart)>16||char_to_int(basePart)<=1){return false;} // checks if the base is within 2-16
+        if(char_to_int(basePart)==-1){return false;} // checks if the base is within 2-16
         if(!numValid(numPart)){return false;}
-        if(!baseValid(basePart)){return false;}
         for(char current_letter : numPart.toCharArray()) //checks if there is any digit larger than the base
         {
             if(char_to_int(current_letter)>=char_to_int(basePart)){return false;}

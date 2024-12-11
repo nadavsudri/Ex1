@@ -15,7 +15,6 @@
  * is: 83581AbB --> 1339975 in decimal
  * _______________The_End_____________
  * **/
-
 package Ex1;
 import java.sql.SQLOutput;
 import java.util.Scanner;
@@ -91,7 +90,6 @@ public class Ex1Main {
                 System.out.println("Err. invalid base ("+base+")");
                 base = get_base();
             }
-
             System.out.println();
             int sum = (Ex1.number2Int(first)+Ex1.number2Int(second)); // the sum of the 2 numbers
             int mult = (Ex1.number2Int(first)*Ex1.number2Int(second)); // the multiplication  of the 2 numbers

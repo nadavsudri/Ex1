@@ -3,6 +3,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import java.util.Random;
 
+import static org.junit.Assert.assertEquals;
+
 public class Ex1Test {
     /** static String method for tests only - provides a random valid number
      * base is assigned using random library (2-16)
@@ -28,7 +30,6 @@ public class Ex1Test {
         }
         return number.toString() + "b" + baseChar;
     }
-
     @Test
     void number2Int()
     {
@@ -45,7 +46,7 @@ public class Ex1Test {
         int c=0;
         for (int i =0; i<randNumbs.length; i++)
         {
-            if (Ex1.isNumber("123b5"))
+            if (Ex1.isNumber(randNumbs[i]))
             {c++;}
         }
         Assertions.assertEquals(10,c);
@@ -56,9 +57,7 @@ public class Ex1Test {
         int num = Ex1.number2Int("A132BbG");
         int num2 = 1256;
         String l = Ex1.int2Number(num2,2);
-        System.out.println(l);
         int base = 16;
-        System.out.println(num);
         Assertions.assertEquals("A132BbG", Ex1.int2Number(num,base));
     }
 
@@ -73,5 +72,31 @@ public class Ex1Test {
         String[] nums_test = {"A12FFbG","11b2","AAAAAbG"};
         int max = Ex1.maxIndex(nums_test);
         Assertions.assertEquals(2, max);
+    }
+    @Test
+    void computeNumberTest() {
+        String s2 = "1011b2";
+        int v = Ex1.number2Int(s2);
+       Assertions.assertEquals(v,11);
+        String s10 = "1011bA";
+        v = Ex1.number2Int(s10);
+        s2 = Ex1.int2Number(v,2);
+        int v2 = Ex1.number2Int(s2);
+        Assertions.assertEquals(v,v2);
+        Assertions.assertTrue(Ex1.equals(s10,s2));
+    }
+
+    @Test
+    void isBasisNumberTest() {
+        String[] good = {"1", "1b2", "01b2", "123bA", "ABbG", "0bA"};
+        for(int i=0;i<good.length;i=i+1) {
+            boolean ok = Ex1.isNumber(good[i]);
+            Assertions.assertTrue(ok);
+        }
+        String[] not_good = {"b2", "2b2", "1G3bG", " BbG", "0bbA", "abB", "!@b2", "A", "1bb2"};
+        for(int i=0;i<not_good.length;i=i+1) {
+            boolean not_ok = Ex1.isNumber(not_good[i]);
+            Assertions.assertFalse(not_ok);
+        }
     }
 }
