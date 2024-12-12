@@ -117,10 +117,10 @@ public class Ex1 {
         int count = 0;
         for(int i = 0; i < a.length(); i++){if(a.charAt(i)=='b'){count++;}}//checks if b  appears in the string less or ,more then 1
         if (count>1){return false;}
-        String numPart; // sets the numeric part with no value to determine later based on b
-        if (!a.contains("b")){numPart =  a;} // no "b" - decimal.
+        String numPart;
+        if (!a.contains("b")){numPart =  a;}
         else { numPart= a.substring(0,a.indexOf("b"));}// create separate string for the numeric part
-        if(numPart.isEmpty()){return false;}// if the numeric part is empty return false ("b3") ex.
+        if(numPart.isEmpty()){return false;}
         if (a.charAt(a.length()-1)=='b'){return false;} // if there is a 'b', but nothing after it, return false
         char basePart = a.charAt(a.indexOf('b')+1); // creates a char for the base
         if(char_to_int(basePart)==-1){return false;} // checks if the base is within 2-16
@@ -142,14 +142,15 @@ public class Ex1 {
      * lastly ans is appended "b" and a char representing the base.
      * **/
     public static String int2Number(int num, int base) {
+        if (base<2){return "";}
         StringBuilder ans = new StringBuilder(); // define ans as string builder to append and reverse the necessary chars
-        String temp_str = String.valueOf(num);// gets a string with val on num
         while (num!=0)// divides num to convert, stops when 0
         {
             ans.append(int_to_char(num % base));//adds the digit to the number based on the remainder
             num /= base;//divide by the base to proceed to next digit
         }
         ans.reverse();// reverse the number (the loop built it backwards
+        if(ans.isEmpty()){ans.append("0");}
         ans.append("b");
         ans.append(int_to_char(base));
         return ans.toString(); // returning the string value of ans

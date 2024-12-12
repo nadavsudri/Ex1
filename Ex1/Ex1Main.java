@@ -16,7 +16,6 @@
  * _______________The_End_____________
  * **/
 package Ex1;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 public class Ex1Main {
     public static void num_show(String num)// prints the number according to its validity
